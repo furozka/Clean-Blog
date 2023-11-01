@@ -15,11 +15,19 @@ mongoose.connect("mongodb://localhost/cleanblog-test-db")
 app.set('view engine', 'ejs');
 app.get('/', async (req, res) => {
     const posts = await Post.find({})
-    console.log(posts)
+    // console.log(posts)
     res.render('index',{
         posts
     });
 });
+
+app.get('/posts/:id', async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    res.render('post', {
+        post
+    });
+});
+
 app.get('/about', (req, res) => {
     res.render('about');
 });
